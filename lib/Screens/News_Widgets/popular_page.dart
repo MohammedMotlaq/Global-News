@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/Providers/db_provider.dart';
 import 'package:news_app/Providers/news_provider.dart';
-import 'package:news_app/Providers/ui_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../Providers/ui_provider.dart';
 
 class PopularPage extends StatelessWidget {
   const PopularPage({Key? key}) : super(key: key);
@@ -94,7 +96,7 @@ class PopularPage extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      if (provider.news[index].id == null)
+                                      if (provider.allNews[index].id == null)
                                         dbProvider.insertFavoriteNews(
                                             provider.allNews[index]);
                                       else {
@@ -116,35 +118,67 @@ class PopularPage extends StatelessWidget {
                                         }
                                       }
                                     },
-                                    child: SizedBox(
-                                      width: 110.w,
+                                    child: Container(
+                                      width: 80.w,
+                                      margin: EdgeInsets.only(right: 10.w),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Provider.of<UiProvider>(context)
-                                                  .checkFav(
-                                                      provider.news[index])
-                                              ? Image.asset(
-                                                  'assets/icons/lovered.png',
-                                                  width: 32.w,
-                                                  height: 32.h,
-                                                )
-                                              : Image.asset(
-                                                  'assets/icons/lovegrey.png',
-                                                  width: 32.w,
-                                                  height: 32.h,
-                                                ),
-                                          Icon(
-                                            Icons.bookmark_add_outlined,
-                                            color: Colors.grey,
-                                            size: 25,
-                                          ),
-                                          Icon(
-                                            Icons.share_outlined,
-                                            color: Colors.grey,
-                                            size: 25,
-                                          )
+                                          InkWell(
+                                              onTap: () {
+                                                if (provider
+                                                        .allNews[index].id ==
+                                                    null)
+                                                  dbProvider.insertFavoriteNews(
+                                                      provider.allNews[index]);
+                                                else {
+                                                  bool isfound = false;
+                                                  dbProvider.favoritesNews
+                                                      .forEach((element) {
+                                                    if (element.id ==
+                                                        provider.allNews[index]
+                                                            .id) {
+                                                      isfound = true;
+                                                      return;
+                                                    }
+                                                  });
+                                                  if (isfound) {
+                                                    dbProvider.deleteNews(
+                                                        provider.allNews[index]
+                                                            .id!);
+                                                  } else {
+                                                    dbProvider
+                                                        .insertFavoriteNews(
+                                                            provider.allNews[
+                                                                index]);
+                                                  }
+                                                }
+                                              },
+                                              child: Provider.of<UiProvider>(
+                                                          context)
+                                                      .checkFav(provider
+                                                          .allNews[index])
+                                                  ? Image.asset(
+                                                      'assets/icons/lovered.png',
+                                                      width: 32.w,
+                                                      height: 32.h,
+                                                    )
+                                                  : Image.asset(
+                                                      'assets/icons/lovegrey.png',
+                                                      width: 32.w,
+                                                      height: 32.h,
+                                                    )),
+                                          InkWell(
+                                              onTap: () async {
+                                                await Share.share(
+                                                    '${provider.allNews[index].title ?? 'no Title'}\n${provider.allNews[index].url ?? 'no Link'}');
+                                              },
+                                              child: Image.asset(
+                                                'assets/icons/share.png',
+                                                width: 28.w,
+                                                height: 28.h,
+                                              )),
                                         ],
                                       ),
                                     ),

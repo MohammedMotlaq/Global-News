@@ -5,6 +5,7 @@ import 'package:news_app/Providers/news_provider.dart';
 import 'package:news_app/Providers/ui_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:developer';
 
@@ -161,8 +162,10 @@ class SearchPage extends StatelessWidget {
                                                         FontWeight.w300),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 110.w,
+                                            Container(
+                                              width: 80.w,
+                                              margin:
+                                                  EdgeInsets.only(right: 10.w),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -170,12 +173,14 @@ class SearchPage extends StatelessWidget {
                                                 children: [
                                                   InkWell(
                                                       onTap: () {
-                                                        if (provider.news[index]
+                                                        if (provider
+                                                                .searchNews[
+                                                                    index]
                                                                 .id ==
                                                             null)
                                                           dbProvider
                                                               .insertFavoriteNews(
-                                                                  provider.news[
+                                                                  provider.searchNews[
                                                                       index]);
                                                         else {
                                                           bool isfound = false;
@@ -185,7 +190,8 @@ class SearchPage extends StatelessWidget {
                                                                   (element) {
                                                             if (element.id ==
                                                                 provider
-                                                                    .news[index]
+                                                                    .searchNews[
+                                                                        index]
                                                                     .id) {
                                                               isfound = true;
                                                               return;
@@ -194,12 +200,13 @@ class SearchPage extends StatelessWidget {
                                                           if (isfound) {
                                                             dbProvider.deleteNews(
                                                                 provider
-                                                                    .news[index]
+                                                                    .searchNews[
+                                                                        index]
                                                                     .id!);
                                                           } else {
                                                             dbProvider
                                                                 .insertFavoriteNews(
-                                                                    provider.news[
+                                                                    provider.searchNews[
                                                                         index]);
                                                           }
                                                         }
@@ -208,7 +215,8 @@ class SearchPage extends StatelessWidget {
                                                                       UiProvider>(
                                                                   context)
                                                               .checkFav(provider
-                                                                  .news[index])
+                                                                      .searchNews[
+                                                                  index])
                                                           ? Image.asset(
                                                               'assets/icons/lovered.png',
                                                               width: 32.w,
@@ -219,16 +227,16 @@ class SearchPage extends StatelessWidget {
                                                               width: 32.w,
                                                               height: 32.h,
                                                             )),
-                                                  Icon(
-                                                    Icons.bookmark_add_outlined,
-                                                    color: Colors.grey,
-                                                    size: 25,
-                                                  ),
-                                                  Icon(
-                                                    Icons.share_outlined,
-                                                    color: Colors.grey,
-                                                    size: 25,
-                                                  )
+                                                  InkWell(
+                                                      onTap: () async {
+                                                        await Share.share(
+                                                            '${provider.searchNews[index].title ?? 'no Title'}\n${provider.searchNews[index].url ?? 'no Link'}');
+                                                      },
+                                                      child: Image.asset(
+                                                        'assets/icons/share.png',
+                                                        width: 28.w,
+                                                        height: 28.h,
+                                                      )),
                                                 ],
                                               ),
                                             ),

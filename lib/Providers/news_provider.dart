@@ -10,10 +10,10 @@ class NewsProvider extends ChangeNotifier {
     getAllNews();
   }
 
-  List<NewsModel> news = [];
-  List<NewsModel> allNews = [];
-  List<NewsModel> discoverNews = [];
-  List<NewsModel> searchNews = [];
+  List<NewsModel> news = []; //breaking news
+  List<NewsModel> allNews = []; //popular news
+  List<NewsModel> discoverNews = []; //discover news
+  List<NewsModel> searchNews = []; //search news
 
   String selectNews = '';
   selectDisNews(String newsName) {

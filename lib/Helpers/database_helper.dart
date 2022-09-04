@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:news_app/Models/favorite_model.dart';
+import 'package:news_app/Models/news_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -19,17 +20,18 @@ class DbHelper {
 
   Database? database;
 
-  initDatabase () async{
+  initDatabase() async {
     database = await createConnectionWithDatabase();
   }
 
-  Future<Database> createConnectionWithDatabase()async {
+  Future<Database> createConnectionWithDatabase() async {
     log("on createConnectionWithDatabase");
     String databasePath = await getDatabasesPath();
     String databaseName = 'newsDatabase5';
-    String fullPath = join(databasePath,databaseName);
+    String fullPath = join(databasePath, databaseName);
 
-    Database database = await openDatabase(fullPath,version: 1,onCreate: (db,i)async{
+    Database database =
+        await openDatabase(fullPath, version: 1, onCreate: (db, i) async {
       log("in onCreate");
       await db.execute('''
         CREATE TABLE $tableName (
@@ -41,23 +43,26 @@ class DbHelper {
         )
       ''');
       log('DataBase Created');
-    },onOpen: (db){log('DataBase Opened');});
+    }, onOpen: (db) {
+      log('DataBase Opened');
+    });
     return database;
   }
 
-  insertFavoriteNews(FavoriteModel favoriteModel)async{
-    int rowIndex = await database!.insert(tableName,favoriteModel.toJson());
+  insertFavoriteNews(NewsModel newsModel) async {
+    int rowIndex = await database!.insert(tableName, newsModel.toJsonDB());
     log(rowIndex.toString());
-    favoriteModel.id = rowIndex;
+    newsModel.id = rowIndex;
   }
 
-  Future<List<FavoriteModel>> selectAllFavoriteNews() async{
+  Future<List<NewsModel>> selectAllFavoriteNews() async {
     List<Map<String, Object?>> rowsAsMap = await database!.query(tableName);
-    List<FavoriteModel> newsDatabase = rowsAsMap.map((e) => FavoriteModel.fromJson(e)).toList();
+    List<NewsModel> newsDatabase =
+        rowsAsMap.map((e) => NewsModel.fromJsonDB(e)).toList();
     return newsDatabase;
   }
 
-  deleteOneFavoriteNews(int id){
+  deleteOneFavoriteNews(int id) {
     database!.delete(tableName, where: '$newsId=?', whereArgs: [id]);
   }
 }

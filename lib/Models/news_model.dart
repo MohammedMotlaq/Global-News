@@ -1,5 +1,5 @@
 class NewsModel {
-  int? id;
+  String? id;
   Source? source;
   String? author;
   String? title;
@@ -30,6 +30,7 @@ class NewsModel {
     urlToImage = json['urlToImage'];
     publishedAt = json['publishedAt'];
     content = json['content'];
+    id = "${source!.name}${title!.substring(1, 10)}";
   }
 
   NewsModel.fromJsonDB(Map<String, dynamic> json) {
@@ -62,6 +63,7 @@ class NewsModel {
     data['url'] = url;
     data['image'] = urlToImage;
     data['publishedAt'] = publishedAt;
+    data['id'] = id;
     return data;
   }
 }

@@ -27,7 +27,7 @@ class DbHelper {
   Future<Database> createConnectionWithDatabase() async {
     log("on createConnectionWithDatabase");
     String databasePath = await getDatabasesPath();
-    String databaseName = 'newsDatabase5';
+    String databaseName = 'newsDatabase11';
     String fullPath = join(databasePath, databaseName);
 
     Database database =
@@ -35,7 +35,7 @@ class DbHelper {
       log("in onCreate");
       await db.execute('''
         CREATE TABLE $tableName (
-        $newsId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $newsId TEXT PRIMARY KEY ,
         $newsTitle TEXT,
         $newsImage TEXT,
         $newsPublishedAt TEXT,
@@ -51,8 +51,6 @@ class DbHelper {
 
   insertFavoriteNews(NewsModel newsModel) async {
     int rowIndex = await database!.insert(tableName, newsModel.toJsonDB());
-    log(rowIndex.toString());
-    newsModel.id = rowIndex;
   }
 
   Future<List<NewsModel>> selectAllFavoriteNews() async {
@@ -62,7 +60,7 @@ class DbHelper {
     return newsDatabase;
   }
 
-  deleteOneFavoriteNews(int id) {
+  deleteOneFavoriteNews(String id) {
     database!.delete(tableName, where: '$newsId=?', whereArgs: [id]);
   }
 }

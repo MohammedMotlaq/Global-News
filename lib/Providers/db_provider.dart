@@ -26,7 +26,7 @@ class DbProvider extends ChangeNotifier {
     selectAllNews();
   }
 
-  deleteNews(int id) async {
+  deleteNews(String id) async {
     await DbHelper.dbHelper.deleteOneFavoriteNews(id);
     selectAllNews();
   }

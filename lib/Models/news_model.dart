@@ -21,6 +21,7 @@ class NewsModel {
   });
 
   NewsModel.fromJson(Map<String, dynamic> json) {
+    id = "${source!.name}${title!.substring(1, 10)}";
     source = json['source'] != null ? Source.fromJson(json['source']) : null;
     author = json['author'] ?? 'No Author';
     title = json['title'];
@@ -29,7 +30,7 @@ class NewsModel {
     urlToImage = json['urlToImage'];
     publishedAt = json['publishedAt'];
     content = json['content'];
-    id = "${source!.name}${title!.substring(1, 10)}";
+
   }
 
   NewsModel.fromJsonDB(Map<String, dynamic> json) {

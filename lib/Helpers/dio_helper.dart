@@ -20,7 +20,7 @@ class DioHelper {
 
   //Get Popular News From API
   Future<List<NewsModel>> getAllNews() async {
-    Response responseAll = await dio.get('https://newsapi.org/v2/everything?q=every&from=2022-09-03&sortBy=popularity&apiKey=83d0a4bfd1434a3ba393eaa97001f158');
+    Response responseAll = await dio.get('https://newsapi.org/v2/everything?q=every&from=2022-09-05&sortBy=popularity&apiKey=83d0a4bfd1434a3ba393eaa97001f158');
     List responseListAll = responseAll.data['articles'];
     List<NewsModel> allNews = responseListAll.map((e) {
       return NewsModel.fromJson(e);
@@ -30,7 +30,7 @@ class DioHelper {
 
   //Get Discover News From API
   getDiscoverNews(String discover) async {
-    Response responseDiscover = await dio.get('https://newsapi.org/v2/everything?q=$discover&from=2022-09-03&sortBy=popularity&apiKey=83d0a4bfd1434a3ba393eaa97001f158');
+    Response responseDiscover = await dio.get('https://newsapi.org/v2/everything?q=$discover&from=2022-09-05&sortBy=popularity&apiKey=83d0a4bfd1434a3ba393eaa97001f158');
     List responseListDis = responseDiscover.data['articles'];
     List<NewsModel> discoverList = responseListDis.map((e) {
       return NewsModel.fromJson(e);
@@ -40,7 +40,7 @@ class DioHelper {
 
   //Get Search Result News From API
   getSearchNews(String searchTitle) async {
-    Response responseSearch = await dio.get('https://newsapi.org/v2/everything?q=$searchTitle&from=2022-08-20&sortBy=popularity&apiKey=83d0a4bfd1434a3ba393eaa97001f158');
+    Response responseSearch = await dio.get('https://newsapi.org/v2/everything?q=$searchTitle&from=2022-08-25&sortBy=popularity&apiKey=83d0a4bfd1434a3ba393eaa97001f158');
     List responseListSearch = responseSearch.data['articles'];
     List<NewsModel> searchList = responseListSearch.map((e) {
       return NewsModel.fromJson(e);

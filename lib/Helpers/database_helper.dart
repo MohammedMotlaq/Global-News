@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:news_app/Models/favorite_model.dart';
 import 'package:news_app/Models/news_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -23,13 +22,13 @@ class DbHelper {
   initDatabase() async {
     database = await createConnectionWithDatabase();
   }
-
+  //Create Connection
   Future<Database> createConnectionWithDatabase() async {
     log("on createConnectionWithDatabase");
     String databasePath = await getDatabasesPath();
     String databaseName = 'newsDatabase11';
     String fullPath = join(databasePath, databaseName);
-
+    //Create and Open Database
     Database database =
         await openDatabase(fullPath, version: 1, onCreate: (db, i) async {
       log("in onCreate");
@@ -48,18 +47,18 @@ class DbHelper {
     });
     return database;
   }
-
+  // insert Favorites News into Database
   insertFavoriteNews(NewsModel newsModel) async {
-    int rowIndex = await database!.insert(tableName, newsModel.toJsonDB());
+    await database!.insert(tableName, newsModel.toJsonDB());
   }
-
+  // Select Favorites News From Database
   Future<List<NewsModel>> selectAllFavoriteNews() async {
     List<Map<String, Object?>> rowsAsMap = await database!.query(tableName);
     List<NewsModel> newsDatabase =
         rowsAsMap.map((e) => NewsModel.fromJsonDB(e)).toList();
     return newsDatabase;
   }
-
+  // Delete Favorites News From Database
   deleteOneFavoriteNews(String id) {
     database!.delete(tableName, where: '$newsId=?', whereArgs: [id]);
   }

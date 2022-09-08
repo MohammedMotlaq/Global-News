@@ -8,7 +8,6 @@ import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:developer';
-
 import '../../Providers/db_provider.dart';
 
 class SearchPage extends StatelessWidget {
@@ -19,246 +18,206 @@ class SearchPage extends StatelessWidget {
     GlobalKey<FormState> formState = GlobalKey();
     TextEditingController controller = TextEditingController();
 
-    return Consumer2<NewsProvider, DbProvider>(
-        builder: (context, provider, dbProvider, x) {
+    return Consumer3<NewsProvider, DbProvider,UiProvider>(
+        builder: (context, provider, dbProvider,uiProvider, x) {
       return SingleChildScrollView(
         child: Column(
           children: [
-            Form(
-              key: formState,
-              child: Container(
-                //color: Colors.red,
-                width: 390.w,
-                height: 40.h,
-                alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.all(8),
-                child: TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Required Value';
-                    } else if (value.length < 2) {
-                      return "your content must be more than 2 characters";
-                    }
-                  },
-                  controller: controller,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
+            SizedBox(
+              height: 50.h,
+              child: Form(
+                key: formState,
+                child: Container(
+                  width: 390.w,
+                  height: 40.h,
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.all(8),
+                  child: TextField(
+                    controller: controller,
+                    onSubmitted: (String textValue){
+                      provider.searchTitleNews(textValue);
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide.none),
-                    fillColor: Colors.grey.shade300,
-                    filled: true,
-                    suffixIcon: InkWell(
+                        borderSide: BorderSide.none
+                      ),
+                      fillColor: uiProvider.searchBox,
+                      filled: true,
+                      suffixIcon: InkWell(
                         onTap: () {
                           if (formState.currentState!.validate()) {
                             provider.searchTitleNews(controller.text);
                           }
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.search,
                           size: 30,
-                          color: Color.fromRGBO(0, 31, 194, 1.0),
-                        )),
-                    hintText: 'Search',
-                    hintStyle: const TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.8),
+                          color: uiProvider.searchIcon,
+                        )
+                      ),
+                      hintText: 'Search',
+                      hintStyle: const TextStyle(
+                        color: Color.fromRGBO(255, 255, 255, 1.0),
+                      ),
+                    ),
+                    cursorColor: uiProvider.textSearch,
+                    cursorHeight: 22,
+                    cursorRadius: const Radius.circular(10),
+                    textAlign: TextAlign.start,
+                    textAlignVertical: TextAlignVertical.bottom,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: uiProvider.textSearch,
                     ),
                   ),
-                  cursorColor: Colors.black,
-                  cursorHeight: 22,
-                  cursorRadius: const Radius.circular(10),
-                  textAlign: TextAlign.start,
-                  textAlignVertical: TextAlignVertical.bottom,
-                  maxLines: 1,
                 ),
               ),
             ),
             SizedBox(
               width: 393.w,
-              height: 646.h,
+              height: 650.h,
               child: Consumer<NewsProvider>(builder: (context, provider, x) {
                 return provider.searchNews.isEmpty
-                    ? Lottie.asset('assets/animations/search.json')
-                    : ListView.builder(
-                        itemCount: provider.searchNews.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: () async {
-                                  var url = Uri.parse(
-                                      provider.searchNews[index].url!);
-                                  try {
-                                    await canLaunchUrl(url)
-                                        ? await launchUrl(url)
-                                        : throw 'Could not open URL';
-                                  } catch (e) {
-                                    log(e.toString());
-                                  }
-                                },
-                                child: Container(
-                                  color: Colors.transparent,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          child: CachedNetworkImage(
-                                              width: 380.w,
-                                              height: 200.h,
-                                              fit: BoxFit.fill,
-                                              imageUrl: provider
-                                                      .searchNews[index]
-                                                      .urlToImage ??
-                                                  "https://play-lh.googleusercontent.com/blO52aLoIwSmO6mYe7cL2ZxV6zhPDC7--AdpcSkVrpPaeZJouPrbaD6Iz51VNdmu9Vc",
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Image.network(
-                                                        'https://play-lh.googleusercontent.com/blO52aLoIwSmO6mYe7cL2ZxV6zhPDC7--AdpcSkVrpPaeZJouPrbaD6Iz51VNdmu9Vc',
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                              placeholder: (context, url) {
-                                                return const Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color: Colors.grey,
-                                                  ),
-                                                );
-                                              }),
+                  ? Lottie.asset('assets/animations/search.json')
+                  : ListView.builder(
+                    itemCount: provider.searchNews.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              var url = Uri.parse(provider.searchNews[index].url!);
+                              try {
+                                await canLaunchUrl(url) ? await launchUrl(url) : throw 'Could not open URL';
+                              } catch (e) {
+                                log(e.toString());
+                              }
+                            },
+                            child: Container(
+                              color: Colors.transparent,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: CachedNetworkImage(
+                                        width: 380.w,
+                                        height: 200.h,
+                                        fit: BoxFit.fill,
+                                        imageUrl: provider.searchNews[index].urlToImage ?? "https://play-lh.googleusercontent.com/blO52aLoIwSmO6mYe7cL2ZxV6zhPDC7--AdpcSkVrpPaeZJouPrbaD6Iz51VNdmu9Vc",
+                                        errorWidget: (context, url, error) =>
+                                        Image.network(
+                                          'https://play-lh.googleusercontent.com/blO52aLoIwSmO6mYe7cL2ZxV6zhPDC7--AdpcSkVrpPaeZJouPrbaD6Iz51VNdmu9Vc',
+                                          fit: BoxFit.fill,
                                         ),
-                                        Container(
-                                          color: Colors.transparent,
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 8.h),
+                                        placeholder: (context, url) {
+                                          return const Center(child: CircularProgressIndicator(color: Colors.grey,),);
+                                        }
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.transparent,
+                                      margin: EdgeInsets.symmetric(vertical: 8.h),
+                                      child: Text(
+                                        provider.searchNews[index].title ?? 'no title',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: uiProvider.textColor
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: 150.w,
                                           child: Text(
-                                            provider.searchNews[index].title ??
-                                                'no title',
+                                            "Published At: ${provider.searchNews[index].publishedAt?.substring(0, 10) ?? 'UnKnown'}",
+                                            overflow: TextOverflow.clip,
                                             style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w300
                                             ),
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: 150.w,
-                                              child: Text(
-                                                provider.searchNews[index]
-                                                        .source!.name ??
-                                                    'Unknown',
-                                                overflow: TextOverflow.clip,
-                                                style: const TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                        Container(
+                                          width: 80.w,
+                                          margin: EdgeInsets.only(right: 10.w),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  if (provider.searchNews[index].id == null) {
+                                                    dbProvider.insertFavoriteNews(provider.searchNews[index]);
+                                                  } else {
+                                                    bool isFound = false;
+                                                    dbProvider.favoritesNews.forEach((element) {
+                                                      if (element.id == provider.searchNews[index].id) {
+                                                        isFound = true;
+                                                        return;
+                                                      }
+                                                    });
+                                                    if (isFound) {
+                                                      dbProvider.deleteNews(
+                                                          provider.searchNews[index].id!);
+                                                    } else {
+                                                      dbProvider.insertFavoriteNews(provider.searchNews[index]);
+                                                    }
+                                                  }
+                                                },
+                                                child: Provider.of<UiProvider>(context).checkFav(provider.searchNews[index])
+                                                ? Image.asset(
+                                                  'assets/icons/lovered.png',
+                                                  width: 28.w,
+                                                  height: 28.h,
+                                                )
+                                                : Image.asset(
+                                                  uiProvider.loveIconColor,
+                                                  width: 28.w,
+                                                  height: 28.h,
+                                                )
                                               ),
-                                            ),
-                                            Container(
-                                              width: 80.w,
-                                              margin:
-                                                  EdgeInsets.only(right: 10.w),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        if (provider
-                                                                .searchNews[
-                                                                    index]
-                                                                .id ==
-                                                            null)
-                                                          dbProvider
-                                                              .insertFavoriteNews(
-                                                                  provider.searchNews[
-                                                                      index]);
-                                                        else {
-                                                          bool isfound = false;
-                                                          dbProvider
-                                                              .favoritesNews
-                                                              .forEach(
-                                                                  (element) {
-                                                            if (element.id ==
-                                                                provider
-                                                                    .searchNews[
-                                                                        index]
-                                                                    .id) {
-                                                              isfound = true;
-                                                              return;
-                                                            }
-                                                          });
-                                                          if (isfound) {
-                                                            dbProvider.deleteNews(
-                                                                provider
-                                                                    .searchNews[
-                                                                        index]
-                                                                    .id!);
-                                                          } else {
-                                                            dbProvider
-                                                                .insertFavoriteNews(
-                                                                    provider.searchNews[
-                                                                        index]);
-                                                          }
-                                                        }
-                                                      },
-                                                      child: Provider.of<
-                                                                      UiProvider>(
-                                                                  context)
-                                                              .checkFav(provider
-                                                                      .searchNews[
-                                                                  index])
-                                                          ? Image.asset(
-                                                              'assets/icons/lovered.png',
-                                                              width: 32.w,
-                                                              height: 32.h,
-                                                            )
-                                                          : Image.asset(
-                                                              'assets/icons/lovegrey.png',
-                                                              width: 32.w,
-                                                              height: 32.h,
-                                                            )),
-                                                  InkWell(
-                                                      onTap: () async {
-                                                        await Share.share(
-                                                            '${provider.searchNews[index].title ?? 'no Title'}\n${provider.searchNews[index].url ?? 'no Link'}');
-                                                      },
-                                                      child: Image.asset(
-                                                        'assets/icons/share.png',
-                                                        width: 28.w,
-                                                        height: 28.h,
-                                                      )),
-                                                ],
+                                              InkWell(
+                                                onTap: () async {
+                                                  await Share.share(provider.searchNews[index].url ?? 'no Link');
+                                                },
+                                                child: Image.asset(
+                                                  uiProvider.shareIcon,
+                                                  width: 28.w,
+                                                  height: 28.h,
+                                                )
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Divider(
-                                color: Colors.grey.shade400,
-                                indent: 0,
-                                endIndent: 0,
-                                thickness: 16,
-                              ),
-                            ],
-                          );
-                        });
+                            ),
+                          ),
+                          Divider(
+                            color: uiProvider.lineColor,
+                            indent: 0,
+                            endIndent: 0,
+                            thickness: 6,
+                            height: 4,
+                          ),
+                        ],
+                      );
+                    }
+                  );
               }),
             ),
           ],

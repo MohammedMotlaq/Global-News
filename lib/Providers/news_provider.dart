@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/Helpers/dio_helper.dart';
 import 'dart:developer';
-
 import 'package:news_app/Models/news_model.dart';
 
 class NewsProvider extends ChangeNotifier {
@@ -10,8 +9,8 @@ class NewsProvider extends ChangeNotifier {
     getAllNews();
   }
 
-  List<NewsModel> news = []; //breaking news
-  List<NewsModel> allNews = []; //popular news
+  List<NewsModel> breakingNews = []; //breaking news
+  List<NewsModel> popularNews = []; //popular news
   List<NewsModel> discoverNews = []; //discover news
   List<NewsModel> searchNews = []; //search news
 
@@ -32,14 +31,14 @@ class NewsProvider extends ChangeNotifier {
   }
 
   getBreakingNews() async {
-    news = await DioHelper.dioHelper.getBreakingNews();
-    log(news.length.toString());
+    breakingNews = await DioHelper.dioHelper.getBreakingNews();
+    log(breakingNews.length.toString());
     notifyListeners();
   }
 
   getAllNews() async {
-    allNews = await DioHelper.dioHelper.getAllNews();
-    log(allNews.length.toString());
+    popularNews = await DioHelper.dioHelper.getAllNews();
+    log(popularNews.length.toString());
     notifyListeners();
   }
 

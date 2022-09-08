@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'Helpers/database_helper.dart';
 import 'Providers/db_provider.dart';
 import 'Providers/ui_provider.dart';
-import 'screens/home/home_page.dart';
+import 'Screens/Splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,14 +35,10 @@ class MyApp extends StatelessWidget {
         builder: (context, x) {
           return MaterialApp(
             navigatorKey: AppRouter.navKey,
-            // theme: ThemeData(
-            //   brightness: Brightness.light,
-            // ),
-            // darkTheme: ThemeData(
-            //   brightness: Brightness.dark
-            // ),
-            // themeMode: ThemeMode.dark,
-            home: HomePage(),
+            theme: ThemeData(
+              fontFamily: 'Bell MT',
+            ),
+            home: SplashScreen(),
             debugShowCheckedModeBanner: false,
           );
         });

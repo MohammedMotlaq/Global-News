@@ -42,9 +42,9 @@ class DiscoverPage extends StatelessWidget {
         'title': 'virus health Sick'
       },
       {
-        'name': 'Policy',
+        'name': 'Politics',
         'image': 'assets/images/policy.jpg',
-        'title': 'American politics '
+        'title': 'politics '
       },
     ];
     return Consumer<NewsProvider>(builder: (context, provider, x) {
@@ -69,19 +69,20 @@ class DiscoverPage extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          cats[index]['image'],
-                          fit: BoxFit.cover,
-                          width: 180.w,
-                          height: 180.h,
-                        )),
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.asset(
+                        cats[index]['image'],
+                        fit: BoxFit.cover,
+                        width: 180.w,
+                        height: 180.h,
+                      )),
                     Text(
                       cats[index]['name'],
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                      ),
                     )
                   ],
                 ),

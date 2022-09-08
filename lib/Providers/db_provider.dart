@@ -1,8 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:news_app/Helpers/database_helper.dart';
-import 'package:news_app/Models/favorite_model.dart';
 import 'package:news_app/Models/news_model.dart';
 
 class DbProvider extends ChangeNotifier {
@@ -11,9 +9,6 @@ class DbProvider extends ChangeNotifier {
     notifyListeners();
   }
   List<NewsModel> favoritesNews = [];
-
-  // String icon = 'assets/icons/lovegrey.png';
-  // bool like = false;
 
   selectAllNews() async {
     favoritesNews = await DbHelper.dbHelper.selectAllFavoriteNews();
@@ -30,11 +25,5 @@ class DbProvider extends ChangeNotifier {
     await DbHelper.dbHelper.deleteOneFavoriteNews(id);
     selectAllNews();
   }
-
-  // getLikeAndIcon(bool isLike,String iconLove){
-  //   icon = iconLove;
-  //   like = isLike;
-  //   notifyListeners();
-  // }
 
 }

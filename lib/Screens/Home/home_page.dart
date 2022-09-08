@@ -10,27 +10,27 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UiProvider>(
-      builder: (context,provider,x) {
+      builder: (context,uiProvider,x) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: uiProvider.scaffoldColor,
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: Color.fromRGBO(239, 238, 238, 1.0),
+            backgroundColor: uiProvider.appBarColor,
             automaticallyImplyLeading: false,
             title: Container(
               margin: EdgeInsets.only(left: 40.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(provider.changeTitleNews(),style:const TextStyle(color: Color.fromRGBO(0, 31, 194, 1.0),fontSize: 25,fontWeight: FontWeight.bold),),
-                  const Text(' News',style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0),fontSize: 25,fontWeight: FontWeight.bold),),
+                  Text(uiProvider.changeTitleNews(),style: TextStyle(color: uiProvider.premaryColor,fontSize: 25,fontWeight: FontWeight.bold),),
+                  Text(' News',style: TextStyle(color: uiProvider.premaryColor,fontSize: 25,fontWeight: FontWeight.bold),),
                 ],
               ),
             ),
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
-                  icon: const Icon(Icons.menu_rounded,color: Color.fromRGBO(0, 31, 194, 1.0),size: 35,),
+                  icon: Icon(Icons.menu_rounded,color: uiProvider.premaryColor,size: 35,),
                   onPressed: () { Scaffold.of(context).openDrawer(); },
                   tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
                 );
@@ -40,22 +40,27 @@ class HomePage extends StatelessWidget {
 
           drawer: DrawerWidget(),
 
-          body: provider.chosenIndexWidget(),
+          body: SizedBox(
+            height: 699.h,
+            child: uiProvider.chosenIndexWidget(),
+          ),
 
           bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            elevation: 0,
             onTap: (i){
-              provider.chosenIndex=i;
+              uiProvider.chosenIndex=i;
               if (i == 0){
-                provider.getIndex(0);
+                uiProvider.getIndex(0);
               }else if(i == 1){
-                provider.getIndex(1);
+                uiProvider.getIndex(1);
               }else if(i ==2){
-                provider.getIndex(2);
+                uiProvider.getIndex(2);
               }else if(i == 3){
-                provider.getIndex(3);
+                uiProvider.getIndex(3);
               }
             },
-            currentIndex: provider.chosenIndex,
+            currentIndex: uiProvider.chosenIndex,
             items: const [
               BottomNavigationBarItem(
                 icon:Icon(Icons.newspaper_rounded,size: 35,),
@@ -74,9 +79,12 @@ class HomePage extends StatelessWidget {
                   label: 'Search'
               ),
             ],
-            selectedItemColor: Color.fromRGBO(0, 31, 194, 1.0),
+            selectedLabelStyle:const TextStyle(
+              fontWeight: FontWeight.bold
+            ),
+            backgroundColor: uiProvider.bottomNavColor,
+            selectedItemColor: uiProvider.selectedItem,
             unselectedItemColor: Colors.grey,
-            backgroundColor: Color.fromRGBO(239, 238, 238, 1.0),
           ),
 
         );

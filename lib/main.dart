@@ -21,7 +21,7 @@ void main() async {
     ChangeNotifierProvider<DbProvider>(create: (context) {
       return DbProvider();
     })
-  ], child: MyApp()));
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

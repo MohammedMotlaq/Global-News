@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               fontFamily: 'Bell MT',
             ),
-            home: SplashScreen(),
+            home:const SplashScreen(),
             debugShowCheckedModeBanner: false,
           );
         });

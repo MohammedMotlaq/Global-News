@@ -1,6 +1,6 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:news_app/Models/news_model.dart';
 
 class DioHelper {
@@ -19,10 +19,16 @@ class DioHelper {
     return news;
   }
 
+  String getCurrentDate() {
+    var now = DateTime.now();
+    var formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(now);
+  }
+
   //Get Popular News From API
   Future<List<NewsModel>> getAllNews() async {
     Response responseAll = await dio.get(
-        'https://newsapi.org/v2/everything?q=every&from=2023-02-01&sortBy=popularity&apiKey=52b32334576e4faea5835dd2640a4841');
+        'https://newsapi.org/v2/everything?q=every&from=$getCurrentDate()&sortBy=popularity&apiKey=52b32334576e4faea5835dd2640a4841');
     List responseListAll = responseAll.data['articles'];
     List<NewsModel> allNews = responseListAll.map((e) {
       return NewsModel.fromJson(e);
@@ -33,7 +39,7 @@ class DioHelper {
   //Get Discover News From API
   getDiscoverNews(String discover) async {
     Response responseDiscover = await dio.get(
-        'https://newsapi.org/v2/everything?q=$discover&from=2023-02-01&sortBy=popularity&apiKey=52b32334576e4faea5835dd2640a4841');
+        'https://newsapi.org/v2/everything?q=$discover&from=$getCurrentDate()&sortBy=popularity&apiKey=52b32334576e4faea5835dd2640a4841');
     List responseListDis = responseDiscover.data['articles'];
     List<NewsModel> discoverList = responseListDis.map((e) {
       return NewsModel.fromJson(e);
@@ -44,7 +50,7 @@ class DioHelper {
   //Get Search Result News From API
   getSearchNews(String searchTitle) async {
     Response responseSearch = await dio.get(
-        'https://newsapi.org/v2/everything?q=$searchTitle&2023-02-01&sortBy=popularity&apiKey=52b32334576e4faea5835dd2640a4841');
+        'https://newsapi.org/v2/everything?q=$searchTitle&apiKey=52b32334576e4faea5835dd2640a4841');
     List responseListSearch = responseSearch.data['articles'];
     List<NewsModel> searchList = responseListSearch.map((e) {
       return NewsModel.fromJson(e);

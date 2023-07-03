@@ -37,6 +37,8 @@ class MyApp extends StatelessWidget {
             navigatorKey: AppRouter.navKey,
             theme: ThemeData(
               fontFamily: 'Bell MT',
+              primarySwatch: Colors.red,
+              useMaterial3: true
             ),
             home:const SplashScreen(),
             debugShowCheckedModeBanner: false,

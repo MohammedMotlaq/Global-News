@@ -17,18 +17,16 @@ class UiProvider extends ChangeNotifier {
   }
 
   int chosenIndex = 0;
-  bool isDark = true;
-  bool themeColor = false;
 
   chosenIndexWidget() {
     if (chosenIndex == 0) {
-      return BreakingNews();
+      return const BreakingNews();
     } else if (chosenIndex == 1) {
-      return PopularPage();
+      return const PopularPage();
     } else if (chosenIndex == 2) {
-      return DiscoverPage();
+      return const DiscoverPage();
     } else if (chosenIndex == 3) {
-      return SearchPage();
+      return const SearchPage();
     }
     notifyListeners();
   }
@@ -66,6 +64,9 @@ class UiProvider extends ChangeNotifier {
     return isFound;
   }
 
+  bool isDark = true;
+  bool themeColor = false;
+
   changeIsDark(){
     if(isDark == true){
       themeColor = true;
@@ -84,7 +85,7 @@ class UiProvider extends ChangeNotifier {
   Color scaffoldColor = Colors.white;
   Color bottomNavColor = Colors.white;
   String shareIcon = 'assets/icons/shareblack.png';
-  Color premaryColor = const Color.fromRGBO(3, 83, 238, 0.8745098039215686);
+  Color premaryColor = Colors.white;
   Color textColor = Colors.white;
   Color lineColor = Colors.black;
   Color selectedItem = const Color.fromRGBO(173, 2, 0, 1.0);
@@ -96,9 +97,10 @@ class UiProvider extends ChangeNotifier {
   String darkIcon = 'assets/icons/sunblack.png';
   String agentIcon = 'assets/icons/agentblack.png';
   String mode = '   Light Mode';
+  Color splashColor = Colors.white;
 
   changeThemes(){
-    if(themeColor == true){//dark
+    if(themeColor == false){//dark
       drawerBackgroundColor = const Color.fromRGBO(21, 21, 21, 1.0);
       shareIcon = 'assets/icons/sharewhite.png';
       premaryColor = Colors.white;
@@ -116,6 +118,7 @@ class UiProvider extends ChangeNotifier {
       darkIcon = 'assets/icons/moonwhite.png';
       agentIcon = 'assets/icons/agentwhite.png';
       mode = '   Dark Mode';
+      splashColor = const Color.fromRGBO(52, 52, 52, 1.0);
 
     }else{//light
       drawerBackgroundColor = Colors.white;
@@ -135,6 +138,7 @@ class UiProvider extends ChangeNotifier {
       darkIcon = 'assets/icons/sunblack.png';
       agentIcon = 'assets/icons/agentblack.png';
       mode = '   Light Mode';
+      splashColor = Colors.white;
     }
     notifyListeners();
   }

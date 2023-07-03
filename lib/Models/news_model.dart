@@ -23,16 +23,16 @@ class NewsModel {
   NewsModel.fromJson(Map<String, dynamic> json) {
     source = json['source'] != null ? Source.fromJson(json['source']) : null;
     author = json['author'] ?? 'No Author';
-    title = json['title'];
+    title = json['title'] ?? " no Title";
     description = json['description'];
     url = json['url'];
     urlToImage = json['urlToImage'];
     publishedAt = json['publishedAt'];
     content = json['content'];
-    id = "${source!.name}${title!.substring(1, 10)}";
+    id = "${source!.name}$publishedAt";
   }
 
-  NewsModel.fromJsonDB(Map<String, dynamic> json) {
+   NewsModel.fromJsonDB(Map<String, dynamic> json) {
     title = json['title'];
     url = json['url'];
     urlToImage = json['image'];

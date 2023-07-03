@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:developer';
 import '../../Providers/db_provider.dart';
+import '../WebView/web_view_page.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -87,12 +88,14 @@ class SearchPage extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () async {
-                              var url = Uri.parse(provider.searchNews[index].url!);
-                              try {
-                                await canLaunchUrl(url) ? await launchUrl(url) : throw 'Could not open URL';
-                              } catch (e) {
-                                log(e.toString());
-                              }
+                              // var url = Uri.parse(provider.searchNews[index].url!);
+                              // try {
+                              //   await canLaunchUrl(url) ? await launchUrl(url) : throw 'Could not open URL';
+                              // } catch (e) {
+                              //   log(e.toString());
+                              // }
+                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  WebViewPage(newsURL: provider.searchNews[index].url!,)));
+
                             },
                             child: Container(
                               color: Colors.transparent,

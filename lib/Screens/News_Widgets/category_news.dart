@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Providers/news_provider.dart';
 import '../../Providers/ui_provider.dart';
+import '../WebView/web_view_page.dart';
 
 class CategoryNews extends StatelessWidget {
   String nameCat;
@@ -42,14 +43,15 @@ class CategoryNews extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () async {
-                          var url = Uri.parse(newsProvider.discoverNews[index].url!);
-                          try {
-                            await canLaunchUrl(url)
-                              ? await launchUrl(url)
-                              : throw 'Could not open URL';
-                          } catch (e) {
-                            log(e.toString());
-                          }
+                          // var url = Uri.parse(newsProvider.discoverNews[index].url!);
+                          // try {
+                          //   await canLaunchUrl(url)
+                          //     ? await launchUrl(url)
+                          //     : throw 'Could not open URL';
+                          // } catch (e) {
+                          //   log(e.toString());
+                          // }
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  WebViewPage(newsURL: newsProvider.discoverNews[index].url!,)));
                         },
                         child: Container(
                           color: Colors.transparent,

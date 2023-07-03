@@ -22,8 +22,8 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(uiProvider.changeTitleNews(),style: TextStyle(color: uiProvider.premaryColor,fontSize: 25,fontWeight: FontWeight.bold),),
-                  Text(' News',style: TextStyle(color: uiProvider.premaryColor,fontSize: 25,fontWeight: FontWeight.bold),),
+                  Text(uiProvider.changeTitleNews(),style: TextStyle(color: uiProvider.premaryColor,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+                  Text(' News',style: TextStyle(color: uiProvider.premaryColor,fontSize: 25.sp,fontWeight: FontWeight.bold),),
                 ],
               ),
             ),

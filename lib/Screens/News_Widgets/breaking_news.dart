@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:news_app/Providers/db_provider.dart';
 import 'package:news_app/Providers/ui_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -8,6 +7,8 @@ import 'package:news_app/Providers/news_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../WebView/web_view_page.dart';
 
 class BreakingNews extends StatelessWidget {
   const BreakingNews({Key? key}) : super(key: key);
@@ -26,13 +27,14 @@ class BreakingNews extends StatelessWidget {
               return Column(
                 children: [
                   InkWell(
-                    onTap: () async {
-                      var url = Uri.parse(provider.breakingNews[index].url!);
-                      try {
-                        await canLaunchUrl(url)
-                          ? await launchUrl(url, mode: LaunchMode.inAppWebView)
-                          : throw 'Could not open URL';
-                      } catch (e) {}
+                    onTap: ()  {
+                      // var url = Uri.parse(provider.breakingNews[index].url!);
+                      // try {
+                      //   await canLaunchUrl(url)
+                      //     ? await launchUrl(url, mode: LaunchMode.inAppWebView)
+                      //     : throw 'Could not open URL';
+                      // } catch (e) {}
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  WebViewPage(newsURL: provider.breakingNews[index].url!,)));
                     },
                     child: Container(
                       color: Colors.transparent,

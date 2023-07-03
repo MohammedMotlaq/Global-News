@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Providers/ui_provider.dart';
+import '../WebView/web_view_page.dart';
 
 class PopularPage extends StatelessWidget {
   const PopularPage({Key? key}) : super(key: key);
@@ -27,12 +28,14 @@ class PopularPage extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () async {
-                      var url = Uri.parse(provider.popularNews[index].url!);
-                      try {
-                        await canLaunchUrl(url) ? await launchUrl(url) : throw 'Could not open URL';
-                      } catch (e) {
-                        log(e.toString());
-                      }
+                      // var url = Uri.parse(provider.popularNews[index].url!);
+                      // try {
+                      //   await canLaunchUrl(url) ? await launchUrl(url) : throw 'Could not open URL';
+                      // } catch (e) {
+                      //   log(e.toString());
+                      // }
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  WebViewPage(newsURL: provider.popularNews[index].url!,)));
+
                     },
                     child: Container(
                       color: Colors.transparent,

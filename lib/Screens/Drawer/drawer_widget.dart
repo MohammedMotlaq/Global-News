@@ -30,13 +30,40 @@ class DrawerWidget extends StatelessWidget {
               SizedBox(
                 width: 300.w,
                 height: 250.h,
-                child:Image.asset('assets/images/newsImage.jpg',fit: BoxFit.cover,),
+                child:Column(
+                  children: [
+                    const Spacer(),
+                    Image.asset('assets/images/splashScreen.png',width: 150,height: 150,),
+                    Text(
+                      "Discover Breaking Stories\n      on our News App!",
+                      style: TextStyle(
+                          color: uiProvider.textColor,
+                          fontSize: 17.sp,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
+                          shadows: [
+                            Shadow(
+                                color: Colors.red.withOpacity(0.5),
+                                offset: const Offset(3,4),
+                                blurRadius: 7
+                            ),
+                            const Shadow(
+                                color: Color.fromRGBO(106, 0, 0, 0.8),
+                                offset: Offset(5,6),
+                                blurRadius: 7
+                            )
+                          ]
+                      ),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    primary:const Color.fromRGBO(109, 130, 241, 1.0),
+                    foregroundColor: Colors.grey,
                     padding:const EdgeInsets.all(15),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     backgroundColor:uiProvider.textButtonDrawer
@@ -73,7 +100,7 @@ class DrawerWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    primary:const Color.fromRGBO(109, 130, 241, 1.0),
+                    foregroundColor: Colors.grey,
                     padding:const EdgeInsets.all(15),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     backgroundColor:uiProvider.textButtonDrawer
@@ -119,7 +146,7 @@ class DrawerWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    primary:const Color.fromRGBO(109, 130, 241, 1.0),
+                    foregroundColor: Colors.grey,
                     padding:const EdgeInsets.all(15),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     backgroundColor:uiProvider.textButtonDrawer

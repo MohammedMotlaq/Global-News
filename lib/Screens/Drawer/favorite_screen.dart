@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Providers/db_provider.dart';
+import '../WebView/web_view_page.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -42,15 +43,17 @@ class FavoriteScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () async {
-                        var url = Uri.parse(dbProvider.favoritesNews[index].url!);
-                        try {
-                          await canLaunchUrl(url)
-                            ? await launchUrl(url,
-                              mode: LaunchMode.inAppWebView)
-                            : throw 'Could not open URL';
-                        } catch (e) {
-                          log(e.toString());
-                        }
+                        // var url = Uri.parse(dbProvider.favoritesNews[index].url!);
+                        // try {
+                        //   await canLaunchUrl(url)
+                        //     ? await launchUrl(url,
+                        //       mode: LaunchMode.inAppWebView)
+                        //     : throw 'Could not open URL';
+                        // } catch (e) {
+                        //   log(e.toString());
+                        // }
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>  WebViewPage(newsURL: dbProvider.favoritesNews[index].url!,)));
+
                       },
                       child: Container(
                         color: Colors.transparent,

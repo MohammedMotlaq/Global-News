@@ -79,8 +79,12 @@ class HomePage extends StatelessWidget {
                   label: 'Search'
               ),
             ],
-            selectedLabelStyle:const TextStyle(
-              fontWeight: FontWeight.bold
+            selectedLabelStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp
+            ),
+            unselectedLabelStyle: TextStyle(
+                fontSize: 14.sp
             ),
             backgroundColor: uiProvider.bottomNavColor,
             selectedItemColor: uiProvider.selectedItem,

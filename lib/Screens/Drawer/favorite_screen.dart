@@ -22,14 +22,14 @@ class FavoriteScreen extends StatelessWidget {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: uiProvider.appBarColor,
-            title: Text('Favorites',style: TextStyle(color: uiProvider.premaryColor, fontSize: 25),),
+            title: Text('Favorites',style: TextStyle(color: uiProvider.primaryColor, fontSize: 25),),
             centerTitle: true,
             automaticallyImplyLeading: false,
             leading: IconButton(
               onPressed: (){
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back_ios_rounded,color: uiProvider.premaryColor,size: 25,)
+              icon: Icon(Icons.arrow_back_ios_rounded,color: uiProvider.primaryColor,size: 25,)
             ),
           ),
           body: dbProvider.favoritesNews.isEmpty

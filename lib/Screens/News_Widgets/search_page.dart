@@ -6,8 +6,6 @@ import 'package:news_app/Providers/ui_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'dart:developer';
 import '../../Providers/db_provider.dart';
 import '../WebView/web_view_page.dart';
 
@@ -161,12 +159,12 @@ class SearchPage extends StatelessWidget {
                                                     dbProvider.insertFavoriteNews(provider.searchNews[index]);
                                                   } else {
                                                     bool isFound = false;
-                                                    dbProvider.favoritesNews.forEach((element) {
+                                                    for (var element in dbProvider.favoritesNews) {
                                                       if (element.id == provider.searchNews[index].id) {
                                                         isFound = true;
-                                                        return;
+                                                        continue;
                                                       }
-                                                    });
+                                                    }
                                                     if (isFound) {
                                                       dbProvider.deleteNews(
                                                           provider.searchNews[index].id!);

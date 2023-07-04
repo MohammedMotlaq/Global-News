@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:news_app/Providers/ui_provider.dart';
 import 'package:news_app/screens/home/home_page.dart';
 import 'package:provider/provider.dart';
+
+import 'no_internet.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,10 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   initState(){
     super.initState();
-    Future.delayed(const Duration(seconds: 2),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context){
-        return const HomePage();
-      }));
+    Future.delayed(const Duration(seconds: 2),() async {
+      if(await InternetConnectionChecker().hasConnection){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+          return HomePage();
+        }));
+      }else{
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+          return NoInternet();
+        }));
+      }
+
     });
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/AppRouter.dart';
+import 'package:news_app/Helpers/sp_helper.dart';
 import 'package:news_app/Models/news_model.dart';
 import 'package:news_app/Providers/db_provider.dart';
 import 'package:provider/provider.dart';
@@ -64,17 +65,17 @@ class UiProvider extends ChangeNotifier {
     return isFound;
   }
 
-  bool isDark = true;
-  bool themeColor = false;
+  bool isDark = SPHelper.getIsDark(); //true
+  bool themeColor = true;
 
   changeIsDark(){
-    if(isDark == true){
+    if(SPHelper.getIsDark()){
       themeColor = true;
-      isDark = false;
+      //SPHelper.changeIsDark();
       changeThemes();
     }else {
       themeColor = false;
-      isDark = true;
+      //SPHelper.changeIsDark();
       changeThemes();
     }
     notifyListeners();
@@ -85,7 +86,7 @@ class UiProvider extends ChangeNotifier {
   Color scaffoldColor = Colors.white;
   Color bottomNavColor = Colors.white;
   String shareIcon = 'assets/icons/shareblack.png';
-  Color premaryColor = Colors.white;
+  Color primaryColor = Colors.white;
   Color textColor = Colors.white;
   Color lineColor = Colors.black;
   Color selectedItem = const Color.fromRGBO(173, 2, 0, 1.0);
@@ -103,7 +104,7 @@ class UiProvider extends ChangeNotifier {
     if(themeColor == false){//dark
       drawerBackgroundColor = const Color.fromRGBO(21, 21, 21, 1.0);
       shareIcon = 'assets/icons/sharewhite.png';
-      premaryColor = Colors.white;
+      primaryColor = Colors.white;
       textColor = Colors.white;
       scaffoldColor = const Color.fromRGBO(21, 21, 21, 1.0);
       appBarColor = const Color.fromRGBO(52, 52, 52, 1.0);
@@ -123,7 +124,7 @@ class UiProvider extends ChangeNotifier {
     }else{//light
       drawerBackgroundColor = Colors.white;
       shareIcon = 'assets/icons/shareblack.png';
-      premaryColor = Colors.white;
+      primaryColor = Colors.white;
       textColor = Colors.black;
       scaffoldColor = Colors.white;
       appBarColor = const Color.fromRGBO(173, 2, 0, 1.0);

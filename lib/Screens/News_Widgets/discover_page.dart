@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:news_app/AppRouter.dart';
 import 'package:news_app/Providers/news_provider.dart';
 import 'package:provider/provider.dart';
 import 'category_news.dart';
@@ -54,12 +58,22 @@ class DiscoverPage extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onTap: () {
-                provider.selectDisNews(cats[index]['title']);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  return CategoryNews(nameCat: cats[index]['name']);
-                }));
+              onTap: () async {
+                bool isConnected = await InternetConnectionChecker().hasConnection;
+                if(isConnected){
+                  try{
+                    provider.selectDisNews(cats[index]['title']);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                          return CategoryNews(nameCat: cats[index]['name']);
+                      }));
+                  }catch (e){
+                    log(e.toString());
+                  }
+                }else{
+                  AppRouter.showErrorSnackBar("No Internet", "Please check your Internet Connection");
+                }
+
               },
               child: Container(
                 width: 180.w,

@@ -22,15 +22,15 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(uiProvider.changeTitleNews(),style: TextStyle(color: uiProvider.premaryColor,fontSize: 25.sp,fontWeight: FontWeight.bold),),
-                  Text(' News',style: TextStyle(color: uiProvider.premaryColor,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+                  Text(uiProvider.changeTitleNews(),style: TextStyle(color: uiProvider.primaryColor,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+                  Text(' News',style: TextStyle(color: uiProvider.primaryColor,fontSize: 25.sp,fontWeight: FontWeight.bold),),
                 ],
               ),
             ),
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
-                  icon: Icon(Icons.menu_rounded,color: uiProvider.premaryColor,size: 35,),
+                  icon: Icon(Icons.menu_rounded,color: uiProvider.primaryColor,size: 35,),
                   onPressed: () { Scaffold.of(context).openDrawer(); },
                   tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
                 );

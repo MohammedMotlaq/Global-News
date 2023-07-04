@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/Helpers/sp_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Providers/ui_provider.dart';
@@ -106,7 +107,9 @@ class DrawerWidget extends StatelessWidget {
                     backgroundColor:uiProvider.textButtonDrawer
                   ),
                   onPressed: ()async{
+                    SPHelper.changeIsDark();
                     uiProvider.changeIsDark();
+                    //uiProvider.notifyListeners();
                   },
                   child: SizedBox(
                     height: 35.h,
@@ -127,6 +130,7 @@ class DrawerWidget extends StatelessWidget {
                           activeColor: Colors.red,
                           value: uiProvider.themeColor,
                           onChanged: (bool newValue) {
+                            SPHelper.changeIsDark();
                             uiProvider.changeIsDark();
                           },
                         )

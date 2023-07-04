@@ -36,9 +36,9 @@ class WebViewPage extends StatelessWidget {
               onPressed: (){
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back_ios_new_rounded,color: uiProvider.premaryColor,)
+              icon: Icon(Icons.arrow_back_ios_new_rounded,color: uiProvider.primaryColor,)
             ),
-            title:  Text('Go Back',style: TextStyle(color: uiProvider.premaryColor,fontSize: 25.sp),)
+            title:  Text('Go Back',style: TextStyle(color: uiProvider.primaryColor,fontSize: 25.sp),)
           ),
           body: SizedBox(
             width: 393.w,

@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,4 +18,27 @@ class AppRouter {
   static popWidget() {
     Navigator.pop(navKey.currentContext!);
   }
+
+  static showErrorSnackBar(String title, String message) {
+    ScaffoldMessenger.of(navKey.currentContext!)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        behavior: SnackBarBehavior.floating,
+        content: AwesomeSnackbarContent(
+            title: title, message: message, contentType: ContentType.failure),
+      ));
+  }
+
+  static showSnackBar(String title, String message) =>
+      ScaffoldMessenger.of(navKey.currentContext!)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          behavior: SnackBarBehavior.floating,
+          content: AwesomeSnackbarContent(
+              title: title, message: message, contentType: ContentType.success),
+      ));
 }

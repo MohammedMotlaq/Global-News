@@ -23,13 +23,13 @@ class CategoryNews extends StatelessWidget {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: uiProvider.appBarColor,
-            title: Text(nameCat, style: TextStyle(color: uiProvider.premaryColor, fontSize: 25),),
+            title: Text(nameCat, style: TextStyle(color: uiProvider.primaryColor, fontSize: 25),),
             centerTitle: true,
             leading: IconButton(
               onPressed: (){
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back_ios_rounded,color: uiProvider.premaryColor,size: 25,)
+              icon: Icon(Icons.arrow_back_ios_rounded,color: uiProvider.primaryColor,size: 25,)
             ),
           ),
           body: newsProvider.discoverNews.isEmpty

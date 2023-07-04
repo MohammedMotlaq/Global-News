@@ -1,6 +1,9 @@
 
+import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/AppRouter.dart';
 import 'package:news_app/Models/news_model.dart';
 
 class DioHelper {
@@ -49,12 +52,23 @@ class DioHelper {
 
   //Get Search Result News From API
   getSearchNews(String searchTitle) async {
-    Response responseSearch = await dio.get(
-        'https://newsapi.org/v2/everything?q=$searchTitle&apiKey=52b32334576e4faea5835dd2640a4841');
-    List responseListSearch = responseSearch.data['articles'];
-    List<NewsModel> searchList = responseListSearch.map((e) {
-      return NewsModel.fromJson(e);
-    }).toList();
-    return searchList;
+
+    bool isConnected = await InternetConnectionChecker().hasConnection;
+
+    if (isConnected) {
+      try {
+        Response responseSearch = await dio.get(
+            'https://newsapi.org/v2/everything?q=$searchTitle&apiKey=52b32334576e4faea5835dd2640a4841');
+        List responseListSearch = responseSearch.data['articles'];
+        List<NewsModel> searchList = responseListSearch.map((e) {
+          return NewsModel.fromJson(e);
+        }).toList();
+        return searchList;
+      } catch (e) {
+        log(e.toString());
+      }
+    } else {
+      AppRouter.showErrorSnackBar("No Internet", "Please check your Internet Connection");
+    }
   }
 }

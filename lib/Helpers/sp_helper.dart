@@ -10,13 +10,16 @@ class SPHelper{
   }
 
   static getIsDark() {
-    return _sp.getBool("isDark") ?? true;
+    return _sp.getBool('isDark') ?? false;
   }
 
   static changeIsDark() {
     bool isDark = getIsDark();
-    _sp.setBool("isDark", !isDark);
-    uiProvider.changeThemes();
+    _sp.setBool('isDark', !isDark);
+  }
+
+  static setIsDark(){
+    _sp.setBool('isDark', false);
   }
 
 }

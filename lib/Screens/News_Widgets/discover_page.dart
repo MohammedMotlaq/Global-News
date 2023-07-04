@@ -90,12 +90,22 @@ class DiscoverPage extends StatelessWidget {
                         width: 180.w,
                         height: 180.h,
                       )),
-                    Text(
-                      cats[index]['name'],
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    Container(
+                      width: 160.w,
+                      height: 40.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color:const Color.fromRGBO(0, 0, 0, 0.7),
+                        borderRadius: BorderRadius.circular(25.r)
+                      ),
+
+                      child: Text(
+                        cats[index]['name'],
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
                     )
                   ],

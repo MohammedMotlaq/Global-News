@@ -14,7 +14,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DbHelper.dbHelper.initDatabase();
   await SPHelper.initializeSp();
-  await SPHelper.setIsDark();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<NewsProvider>(create: (context) {
       return NewsProvider();

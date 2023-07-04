@@ -16,10 +16,11 @@ class SPHelper{
   static changeIsDark() {
     bool isDark = getIsDark();
     _sp.setBool('isDark', !isDark);
+    SPHelper.setIsDark(!isDark);
   }
 
-  static setIsDark(){
-    _sp.setBool('isDark', false);
+  static setIsDark(bool value){
+    _sp.setBool('isDark', value);
   }
 
 }

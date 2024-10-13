@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:news_app/Providers/internet_provider.dart';
 import 'package:news_app/Providers/ui_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+//import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class NoInternet extends StatelessWidget {
   const NoInternet({super.key});
@@ -37,22 +37,22 @@ class NoInternet extends StatelessWidget {
                 SizedBox(
                   height: 70.h,
                   width: 180.w,
-                  child: RoundedLoadingButton(
-                    color:const Color.fromRGBO(119, 0, 0, 1.0),
-                    valueColor: uiProvider.textColor,
-                    controller: netProvider.btnController,
-                    successColor: const Color.fromRGBO(0, 136, 0, 1.0),
-                    errorColor: const Color.fromRGBO(143, 1, 1, 1.0),
-                    onPressed: () => netProvider.checkInternetConnection(),
-                    child: Text(
-                      "Retry",
-                      //textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                  // child: RoundedLoadingButton(
+                  //   color:const Color.fromRGBO(119, 0, 0, 1.0),
+                  //   valueColor: uiProvider.textColor,
+                  //   controller: netProvider.btnController,
+                  //   successColor: const Color.fromRGBO(0, 136, 0, 1.0),
+                  //   errorColor: const Color.fromRGBO(143, 1, 1, 1.0),
+                  //   onPressed: () => netProvider.checkInternetConnection(),
+                  //   child: Text(
+                  //     "Retry",
+                  //     //textAlign: TextAlign.left,
+                  //     style: TextStyle(
+                  //         fontSize: 18.sp,
+                  //         color: Colors.white,
+                  //         fontWeight: FontWeight.w600),
+                  //   ),
+                  // ),
                 ),
                 const Spacer(),
               ],

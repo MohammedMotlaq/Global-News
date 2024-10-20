@@ -10,7 +10,7 @@ import '../../Providers/db_provider.dart';
 import '../WebView/web_view_page.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {

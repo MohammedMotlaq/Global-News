@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,12 +5,11 @@ import 'package:news_app/Providers/db_provider.dart';
 import 'package:news_app/Providers/news_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../Providers/ui_provider.dart';
 import '../WebView/web_view_page.dart';
 
 class PopularPage extends StatelessWidget {
-  const PopularPage({Key? key}) : super(key: key);
+  const PopularPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +93,12 @@ class PopularPage extends StatelessWidget {
                                       dbProvider.insertFavoriteNews(provider.popularNews[index]);
                                     } else {
                                       bool isFound = false;
-                                      dbProvider.favoritesNews.forEach((element) {
+                                      for (var element in dbProvider.favoritesNews) {
                                         if (element.id == provider.popularNews[index].id) {
                                           isFound = true;
-                                          return;
+                                          continue;
                                         }
-                                      });
+                                      }
                                       if (isFound) {
                                         dbProvider.deleteNews(provider.popularNews[index].id!);
                                       } else {
@@ -120,12 +118,12 @@ class PopularPage extends StatelessWidget {
                                               dbProvider.insertFavoriteNews(provider.popularNews[index]);
                                             } else {
                                               bool isFound = false;
-                                              dbProvider.favoritesNews.forEach((element) {
+                                              for (var element in dbProvider.favoritesNews) {
                                                 if (element.id == provider.popularNews[index].id) {
                                                   isFound = true;
-                                                  return;
+                                                  continue;
                                                 }
-                                              });
+                                              }
                                               if (isFound) {
                                                 dbProvider.deleteNews(provider.popularNews[index].id!);
                                               } else {

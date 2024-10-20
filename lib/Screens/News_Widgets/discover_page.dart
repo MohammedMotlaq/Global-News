@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'category_news.dart';
 
 class DiscoverPage extends StatelessWidget {
-  const DiscoverPage({Key? key}) : super(key: key);
+  const DiscoverPage({super.key});
 
   @override
   Widget build(BuildContext context) {

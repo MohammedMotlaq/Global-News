@@ -6,12 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/Providers/news_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../WebView/web_view_page.dart';
 
 class BreakingNews extends StatelessWidget {
-  const BreakingNews({Key? key}) : super(key: key);
+  const BreakingNews({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -105,12 +104,12 @@ class BreakingNews extends StatelessWidget {
                                     dbProvider.insertFavoriteNews(provider.breakingNews[index]);
                                   } else {
                                   bool isFound = false;
-                                  dbProvider.favoritesNews.forEach((element) {
+                                  for (var element in dbProvider.favoritesNews) {
                                     if (element.id == provider.breakingNews[index].id) {
                                       isFound = true;
-                                      return;
+                                      continue;
                                     }
-                                  });
+                                  }
                                     if (isFound) {
                                       dbProvider.deleteNews(provider.breakingNews[index].id!);
                                     } else {

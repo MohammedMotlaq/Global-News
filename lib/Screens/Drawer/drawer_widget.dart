@@ -7,7 +7,7 @@ import '../../Providers/ui_provider.dart';
 import 'favorite_screen.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
+  const DrawerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
